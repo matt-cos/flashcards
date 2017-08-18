@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+
+// middleware
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
