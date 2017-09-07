@@ -1,9 +1,10 @@
-const express = require('express');
-const app = express();
+/*jshint esversion: 6 */
 
-// middleware
+const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -11,19 +12,17 @@ app.use(cookieParser());
 app.set('view engine', 'pug');
 
 app.use((req, res, next) => {
-	req.messagehhh = 'This message made it!';
-	next();
+	// req.messagehhh = 'This message made it!';
+	console.log("Hello");
+	const err = new Error("Oh no!");
+	next(err);
 });
 
 app.use((req, res, next) => {
-	console.log(req.messagehhh);
+	// console.log(req.messagehhh);
+	console.log("world");
 	next();
 });
-
-
-
-
-
 
 
 
@@ -69,6 +68,13 @@ app.post('/goodbye', (req, res) => {
 	res.redirect('/hello');
 });
 
+app.use((err, req, res, next) => {
+	res.locals.error = err;
+	res.status();
+	// PAUSED HERE!
+	res.render('error');
+});
+
 app.listen(3000, () => {
-	console.log('the application is running on localhost:3000!')
+	console.log('the application is running on localhost:3000!');
 });
